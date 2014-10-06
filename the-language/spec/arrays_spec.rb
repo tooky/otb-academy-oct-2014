@@ -91,4 +91,14 @@ RSpec.describe "Ruby Arrays" do
     expect( array ).to eq( [:first, :second, :third] )
   end
 
+  context 'product' do
+    it 'returns an array of all combinations of elements from all arrays' do
+      expect([1, 2].product([3])).to eq [[1, 3], [2, 3]]
+
+      product = [1, 2].product([3], [4, 5])
+
+      expect(product).to eq [[1, 3, 4], [1, 3, 5], [2, 3, 4], [2, 3, 5]]
+    end
+  end
+
 end
