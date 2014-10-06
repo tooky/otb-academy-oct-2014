@@ -171,4 +171,15 @@ END
     expect( a == b ).to eq( true )
     expect( a.object_id == b.object_id ).to eq( false )
   end
+
+  it "is a unique object" do
+    a = "yellow moon"
+    b = "   now    is  the"
+    c = "putters shoot balls"
+
+    expect( a.squeeze ).to eq( "yelow mon" )
+    expect( b.squeeze(" ") ).to eq( " now is the" )
+    expect( c.squeeze("m-z") ).to eq( "puters shot balls" )
+  end
+
 end
