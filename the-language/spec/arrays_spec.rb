@@ -91,4 +91,16 @@ RSpec.describe "Ruby Arrays" do
     expect( array ).to eq( [:first, :second, :third] )
   end
 
+  it "Finding the first x" do
+    array = ["item 1", 2, "item 3", "rabbits"]
+    expect( array.first ).to eq( "item 1" )
+    expect( array.first(2) ).to eq( ["item 1", 2] )
+  end
+
+  it "Returning the last x elements " do
+    array = [1,2,3,4,5]
+    expect(array.last).to eq(5)
+    expect(array.last(2)).to eq([4,5])
+  end
+
 end
