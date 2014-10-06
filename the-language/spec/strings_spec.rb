@@ -182,4 +182,17 @@ END
     expect( c.squeeze("m-z") ).to eq( "puters shot balls" )
   end
 
+  it "should return last tring passing letter " do
+    b = "bcdk"
+    expect(b.succ).to eq "bcdl"
+  end
+
+  it "should return change  letters " do
+    expect("hello".tr('el', 'ip')  ).to eq "hippo"
+  end
+
+  it "should split letters " do
+    expect("hello".partition("l") ).to eq ["he","l","lo"]
+  end
+
 end
