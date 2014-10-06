@@ -103,4 +103,10 @@ RSpec.describe "Ruby Arrays" do
     expect(array.last(2)).to eq([4,5])
   end
 
+  it "Dropping the last x elements " do
+    array = [1,2,3,4,5]
+    expect(array.drop(3)).to eq([4 ,5])
+    expect(array.take(3)).to eq([1 ,2, 3])
+  end  
+
 end
