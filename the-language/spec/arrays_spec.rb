@@ -2,8 +2,10 @@ RSpec.describe "Ruby Arrays" do
   it "can be created like any other object" do
     empty = Array.new
 
-    expect( empty.class ).to eq (Array)
-    expect( empty.size ).to eq (0)
+
+    expect( empty.class ).to eq Array
+    expect( empty.size ).to eq 0
+
   end
 
   it "can also be created using an array literal" do
@@ -16,18 +18,21 @@ RSpec.describe "Ruby Arrays" do
     expect( array ).to eq( [1, 2] )
 
     array << 333
-    expect( array ).to eq( [1, 2, 333] )
+
+    expect( array ).to eq([1, 2, 333])
+
   end
 
   it "provides the subscript operator for accessing elements" do
     array = ["New York", "Paris", "London", "Milan"]
 
     expect( array[0] ).to eq( "New York" )
-    expect( array[3] ).to eq( "Milan")
+    expect( array[3] ).to eq( "Milan" )
 
     # What do you thing will happen here?
-    expect( array[-1] ).to eq( "Milan" )
-    expect( array[-3] ).to eq( "Paris" )
+    expect( array[-1] ).to eq("Milan")
+    expect( array[-3] ).to eq("Paris")
+
   end
 
   it "has methods for accessing the beginning and end of the array" do
@@ -40,10 +45,12 @@ RSpec.describe "Ruby Arrays" do
   it "can be sliced" do
     array = ["New York", "Paris", "London", "Milan"]
 
-    expect( array.slice(0,1) ).to eq( ["New York" ])
-    expect( array.slice(0,2) ).to eq( ["New York", "Paris"])
+
+    expect( array.slice(0,1) ).to eq( ["New York"] )
+    expect( array.slice(0,2) ).to eq( ["New York", "Paris"] )
     expect( array.slice(3,3) ).to eq( ["Milan"] )
-    expect( array.slice(2,20) ).to eq( ["London","Milan"])
+    expect( array.slice(2,20) ).to eq( ["London", "Milan"] )
+
     expect( array.slice(4,0) ).to eq( [] )
     expect( array.slice(4,10) ).to eq( [] )
     expect( array.slice(5,0) ).to eq( nil )
@@ -52,8 +59,10 @@ RSpec.describe "Ruby Arrays" do
   it "is similar to a range" do
     expect( (1..5).class ).to eq( Range )
     expect( [1,2,3,4,5] ).not_to eq( (1..5) )
-    expect( [1,2,3,4,5] ).to eq( (1..5).to_a )
-    expect( [1,2,3,4] ).to eq( (1...5).to_a )
+
+    expect( [1, 2, 3, 4, 5] ).to eq( (1..5).to_a )
+    expect( [1, 2, 3 ,4] ).to eq( (1...5).to_a )
+
   end
 
   it "can be sliced by a range" do
@@ -89,6 +98,18 @@ RSpec.describe "Ruby Arrays" do
     array.unshift(value)
 
     expect( array ).to eq( [:first, :second, :third] )
+
+  end
+
+  context 'product' do
+    it 'returns an array of all combinations of elements from all arrays' do
+      expect([1, 2].product([3])).to eq [[1, 3], [2, 3]]
+
+      product = [1, 2].product([3], [4, 5])
+
+      expect(product).to eq [[1, 3, 4], [1, 3, 5], [2, 3, 4], [2, 3, 5]]
+    end
+
   end
 
   it "Finding the first x" do
