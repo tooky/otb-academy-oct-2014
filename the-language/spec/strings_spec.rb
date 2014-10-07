@@ -43,9 +43,9 @@ Humpty dumpty had a great fall
 
     expect( string.length ).to eq( 63 )
     expect( string.lines.count ).to eq( 3 )
-    expect( string[0,1] ).to eq( "\n"  )
-  end
 
+    expect( string[0,1] ).to eq( "\n"  )
+end
   it "can also handle multiple lines with a heredoc" do
     string = <<END
 Humpty dumpty sat on the wall,
@@ -154,7 +154,9 @@ END
     string = "has:many:through"
     words = string.split(":")
 
+
     expect( words ).to eq( ["has","many","through"] )
+
   end
 
   it "can join strings" do
@@ -168,8 +170,21 @@ END
     a = "Hello, world!"
     b = "Hello, world!"
 
-    expect( a == b ).to eq true
-    expect( a.object_id == b.object_id ).to eq false
+    expect( a == b ).to eq( true )
+    expect( a.object_id == b.object_id ).to eq( false )
+  end
+
+  it "Testing the succ method" do
+    str = "999@"
+
+    expect( "z".succ ).to eq("aa")
+  end
+
+  it "example of tr method" do
+    str_1 = "drink"
+
+    expect(str_1.tr("dr", "sl")).to eq("slink")
+
   end
 
   it "is a unique object" do
