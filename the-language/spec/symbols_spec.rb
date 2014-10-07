@@ -57,28 +57,28 @@ RSpec.describe "A symbol in Ruby" do
     symbol = :world
     string = "hello #{symbol}"
 
-    expect( string ).to eq( __ )
+    expect( string ).to eq( "hello world" )
   end
 
   it "is not a string" do
     symbol = :world
 
-    expect( symbol.is_a?(String) ).to eq( __ )
-    expect( symbol == "ruby" ).to eq( __ )
+    expect( symbol.is_a?(String) ).to eq(  false )
+    expect( symbol == "ruby" ).to eq( false )
   end
 
   it "doesn't have string methods" do
     symbol = :world
 
-    expect( symbol.respond_to?(:reverse) ).to eq( __ )
-    expect( symbol.respond_to?(:split) ).to eq( __ )
+    expect( symbol.respond_to?(:reverse) ).to eq( false )
+    expect( symbol.respond_to?(:split) ).to eq( false )
   end
 
   it "can't be concatenated" do
-    expect { :hello + :world }.to raise_error( __ )
+    expect { :hello + :world }.to raise_error( NoMethodError )
   end
 
   it "can be created dynamically" do
-    expect( ("hello" + "world").to_sym ).to eq( __ )
+    expect( ("hello" + "world").to_sym ).to eq( :helloworld )
   end
 end
