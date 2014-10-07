@@ -130,4 +130,93 @@ RSpec.describe "methods in ruby" do
 
   end
 
+  class Base
+
+    def public_method; :public_method; end
+
+    protected
+
+    def protected_method; :protected_method; end
+
+    private
+
+    def private_method; :private_method; end
+  end
+
+  class Specific < Base
+    def public_method_calling_private
+      private_method
+    end
+
+    def public_method_calling_private_explicitly
+      self.private_method
+    end
+
+    def public_method_calling_protected
+      protected_method
+    end
+
+    def public_method_calling_protected_explictly
+      self.protected_method
+    end
+
+    def calls_the_protected_method_on_other(klass)
+      klass.protected_method
+    end
+  end
+
+  class Standalone
+    def calls_protected(klass)
+      klass.protected_method 
+    end
+
+    def calls_private(klass)
+      klass.private_method
+    end
+
+    protected
+
+    def protected_method; :protected_method; end
+  end
+
+  describe Specific do
+    let(:object) { Specific.new }
+
+    it "can call public methods of parent" do
+      expect(object.public_method).to eq(:public_method)
+    end
+
+    it "cannot access parent's private method" do
+      expect{object.private_method}.to raise_error(NoMethodError)
+    end
+
+    it "can access private/protected methods from parents with implicit receiver" do
+      expect(object.public_method_calling_private).to eq(:private_method)
+      expect(object.public_method_calling_protected).to eq(:protected_method)
+    end
+
+    it "cannot access private methods from parent with explicit receiver" do
+      expect{ object.public_method_calling_private_explicitly }.to raise_error(NoMethodError)
+    end
+
+    it "can call a protected method on another instance of itself" do
+      another = Specific.new
+      expect { object.calls_the_protected_method_on_other(another) }.not_to raise_error
+    end
+
+    it "cannot call a protected method on an instance of another class" do
+      another = Standalone.new
+      expect{ object.calls_the_protected_method_on_other(another) }.to raise_error(NoMethodError)
+    end
+  end
+
+  describe Standalone do
+    let(:object) { Standalone.new }
+
+    it "cannot access private/protected methods with explicit receiver" do
+      expect{ object.calls_private(Base.new) }.to raise_error(NoMethodError)
+      expect{ object.calls_protected(Base.new) }.to raise_error(NoMethodError)
+    end
+  end
+
 end
