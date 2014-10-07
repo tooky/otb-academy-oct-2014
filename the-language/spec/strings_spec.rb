@@ -168,8 +168,8 @@ END
     a = "Hello, world!"
     b = "Hello, world!"
 
-    expect( a == b ).to eq( true )
-    expect( a.object_id == b.object_id ).to eq( false )
+    expect( a == b ).to eq true
+    expect( a.object_id == b.object_id ).to eq false
   end
 
   it "is a unique object" do
@@ -184,10 +184,12 @@ END
 
   it "should return last tring passing letter " do
     b = "bcdk"
+    c = "1234"
     expect(b.succ).to eq "bcdl"
+    expect(c.succ).to eq "1235"
   end
 
-  it "should return change  letters " do
+  it "should return change letters " do
     expect("hello".tr('el', 'ip')  ).to eq "hippo"
   end
 
