@@ -171,4 +171,16 @@ END
     expect( a == b ).to eq( true )
     expect( a.object_id == b.object_id ).to eq( false )
   end
+
+  it "Testing the succ method" do
+    str = "1234"
+
+    expect( str.succ ).to eq("1235")
+  end
+
+  it "example of tr method" do
+    str_1 = "drink"
+
+    expect(str_1.tr("dr", "sl")).to eq("slink")
+  end
 end
