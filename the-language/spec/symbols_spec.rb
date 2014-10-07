@@ -25,6 +25,10 @@ RSpec.describe "A symbol in Ruby" do
 
     # split is a method on String that we have used previously
     expect( symbols_as_strings.include?("split") ).to eq( true )
+    # because as soon u reference it its created and not deleted
+    #expect( Symbol.all_symbols.include?(:hwefiweofjwoiefo) ).to eq( true )
+
+
   end
 
   MagicNumber = 3
