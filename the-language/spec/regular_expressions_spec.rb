@@ -137,5 +137,9 @@ RSpec.describe "Regular expressions" do
     it "uses gsub to find and replace all" do
       expect( "one two-three".gsub(/(t\w*)/) { $1[0, 1] } ).to eq( "one t-t" )
     end
+
+    it 'checks email address ' do
+      expect("asta@gm.lt"[/[a-z0-9]*@[a-z0-9]*[.][a-z0-9]{2,3}/i] ).to eq ("asta@gm.lt")
+    end
   end
 end
