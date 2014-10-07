@@ -15,16 +15,16 @@ end
 describe "Ruby Constant" do
 
   it "references local constants" do
-    expect( More.local ).to eq( __ )
+    expect( More.local ).to eq( "nested" )
   end
 
   it "uses double colon to reference global constants" do
-    expect( More.double_colon ).to eq( __ )
+    expect( More.double_colon ).to eq( "top level" )
   end
 
   it "references nested constants using their complete path" do
-    expect( More::C ).to eq( __ )
-    expect( ::More::C ).to eq( __ )
+    expect( More::C ).to eq( "nested" )
+    expect( ::More::C ).to eq( "nested" )
   end
 
   class Animal
@@ -41,7 +41,7 @@ describe "Ruby Constant" do
   end
 
   it "inherits constants from enclosing classes" do
-    expect( Animal::NestedAnimal.new.legs_in_nested_animal ).to eq( __ )
+    expect( Animal::NestedAnimal.new.legs_in_nested_animal ).to eq( 4 )
   end
 
   class Reptile < Animal
@@ -51,7 +51,7 @@ describe "Ruby Constant" do
   end
 
   it "inherits constants in subclasses from the parent class" do
-    expect( Reptile.new.legs_in_reptile ).to eq( __ )
+    expect( Reptile.new.legs_in_reptile ).to eq( 4 )
   end
 
   class MyAnimals
@@ -65,7 +65,7 @@ describe "Ruby Constant" do
   end
 
   it "can add a new constant in a subclass" do
-    expect( MyAnimals::Bird.new.legs_in_bird ).to eq( __ )
+    expect( MyAnimals::Bird.new.legs_in_bird ).to eq( 2 )
   end
 
   class MyAnimals::Oyster < Animal
@@ -75,7 +75,7 @@ describe "Ruby Constant" do
   end
 
   it "is different when the lexical scope changes" do
-    expect( MyAnimals::Oyster.new.legs_in_oyster ).to eq( __ )
+    expect( MyAnimals::Oyster.new.legs_in_oyster ).to eq( 4 )
   end
 end
 
