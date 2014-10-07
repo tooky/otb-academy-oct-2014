@@ -1,4 +1,6 @@
 RSpec.describe "Regular expressions" do
+  # * - dont care what is where never fails cause 0 or more
+  # + - one or more
   context "the basics" do
     it "is a pattern" do
       expect( /pattern/.class ).to eq( Regexp )
