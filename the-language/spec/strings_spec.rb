@@ -173,9 +173,9 @@ END
   end
 
   it "Testing the succ method" do
-    str = "1234"
+    str = "999@"
 
-    expect( str.succ ).to eq("1235")
+    expect( "z".succ ).to eq("aa")
   end
 
   it "example of tr method" do
