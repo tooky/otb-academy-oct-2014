@@ -13,26 +13,56 @@
 # and
 #   about_triangle_project_2.rb
 #
-
-def is_equilateral?(side1, side2, side3)
-  side1 == side2 && side2 == side3
-end
-
-def is_isosceles?(side1, side2, side3)
-  side1 == side2 || side2== side3 || side1 == side3
-end
-
-
 def triangle(a, b, c)
-  # WRITE THIS CODE
-  if is_equilateral?(a, b, c)
-    :equilateral
-  elsif is_isosceles?(a, b, c)
-    :isosceles
-  else
-    :scalene
+  Triangle.new(a, b, c).type
+end
+
+class Triangle
+  attr_reader :type
+
+  def initialize(a, b, c)
+    @a, @b, @c = a, b, c
+    validate!
+    calculate_triangle
   end
 
+  private
+
+  def validate!
+    if !valid?
+      raise TriangleError, 'invalid arguments'
+    end
+  end
+
+  def valid?
+    if @a + @b > @c && @a + @c > @b && @b + @c > @a
+      true
+    else
+      false
+    end
+  end
+
+  def calculate_triangle
+    if is_equilateral?
+      @type = :equilateral
+    elsif is_isosceles?
+      @type = :isosceles
+    elsif is_scalene?
+      @type = :scalene
+    end
+  end
+
+  def is_equilateral?
+    @a == @b && @b == @c
+  end
+
+  def is_isosceles?
+    @a == @b || @a == @c || @b == @c
+  end
+
+  def is_scalene?
+    @a != @b && @b != @c
+  end
 end
 
 # Error class used in part 2.  No need to change this code.
