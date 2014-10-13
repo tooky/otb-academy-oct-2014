@@ -10,19 +10,49 @@ class Bottles
   end
 
   def verse(remaining)
-    case remaining
-    when 0
-      "No more bottles of beer on the wall, no more bottles of beer.\n" <<
-        "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
-    when 1
-      "1 bottle of beer on the wall, 1 bottle of beer.\n" <<
-        "Take it down and pass it around, no more bottles of beer on the wall.\n"
-    when 2
-      "2 bottles of beer on the wall, 2 bottles of beer.\n" <<
-        "Take one down and pass it around, 1 bottle of beer on the wall.\n"
+    next_bottle_num = next_bottle(remaining)
+
+    "#{bottles_left(remaining).capitalize} #{pluralize(remaining)} of beer on the wall, #{bottles_left(remaining)} #{pluralize(remaining)} of beer.\n" <<
+      "#{action(remaining)}, #{bottles_left(next_bottle_num)} #{pluralize(next_bottle_num)} of beer on the wall.\n"
+  end
+
+  def pluralize(remaining)
+    if remaining == 1
+      "bottle"
     else
-      "#{remaining} bottles of beer on the wall, #{remaining} bottles of beer.\n" <<
-        "Take one down and pass it around, #{remaining - 1} bottles of beer on the wall.\n"
+      "bottles"
     end
   end
+
+  def pronoun(remaining)
+    if remaining == 1
+      "it"
+    else
+      "one"
+    end
+  end
+
+  def bottles_left(remaining)
+    if remaining == 0
+      "no more"
+    else
+      remaining.to_s
+    end
+  end
+
+  def next_bottle(remaining)
+    if remaining == 0
+      99
+    else
+      remaining - 1
+    end
+  end
+
+  def action(remaining)
+    if remaining == 0
+      "Go to the store and buy some more"
+    else 
+      "Take #{pronoun(remaining)} down and pass it around"
+    end
+  end  
 end
