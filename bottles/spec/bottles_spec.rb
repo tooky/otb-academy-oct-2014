@@ -38,3 +38,10 @@ describe "singing 99 bottles of beer" do
     expect( song.sing ).to eq( song.verses(99, 0) )
   end
 end
+
+describe BottleCounter do
+  it 'returns correct next bottle' do
+    expect(BottleCounter.new(0).next_bottle).to eq 99
+    expect(BottleCounter.new(99).next_bottle).to eq 98
+  end
+end

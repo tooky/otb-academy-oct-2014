@@ -10,49 +10,57 @@ class Bottles
   end
 
   def verse(remaining)
-    next_bottle_num = next_bottle(remaining)
+    bcounter = BottleCounter.new(remaining)
+    next_bottle_num = bcounter.next_bottle
+    next_b_counter = BottleCounter.new(next_bottle_num)
 
-    "#{bottles_left(remaining).capitalize} #{pluralize(remaining)} of beer on the wall, #{bottles_left(remaining)} #{pluralize(remaining)} of beer.\n" <<
-      "#{action(remaining)}, #{bottles_left(next_bottle_num)} #{pluralize(next_bottle_num)} of beer on the wall.\n"
+    "#{bcounter.bottles_left.capitalize} #{bcounter.pluralize} of beer on the wall, #{bcounter.bottles_left} #{bcounter.pluralize} of beer.\n" <<
+      "#{bcounter.action}, #{next_b_counter.bottles_left} #{next_b_counter.pluralize} of beer on the wall.\n"
+  end
+end
+
+class BottleCounter
+  def initialize(remaining)
+    @remaining = remaining
   end
 
-  def pluralize(remaining)
-    if remaining == 1
-      "bottle"
-    else
-      "bottles"
-    end
-  end
-
-  def pronoun(remaining)
-    if remaining == 1
+  def pronoun
+    if @remaining == 1
       "it"
     else
       "one"
     end
   end
 
-  def bottles_left(remaining)
-    if remaining == 0
+  def pluralize
+    if @remaining == 1
+      "bottle"
+    else
+      "bottles"
+    end
+  end
+
+  def bottles_left
+    if @remaining == 0
       "no more"
     else
-      remaining.to_s
+      @remaining.to_s
     end
   end
 
-  def next_bottle(remaining)
-    if remaining == 0
+  def next_bottle
+    if @remaining == 0
       99
     else
-      remaining - 1
+      @remaining - 1
     end
   end
 
-  def action(remaining)
-    if remaining == 0
+  def action
+    if @remaining == 0
       "Go to the store and buy some more"
-    else 
-      "Take #{pronoun(remaining)} down and pass it around"
+    else
+      "Take #{pronoun} down and pass it around"
     end
-  end  
+  end
 end
