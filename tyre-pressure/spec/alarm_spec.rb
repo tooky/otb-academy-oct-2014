@@ -46,7 +46,6 @@ RSpec.describe "tyre pressure alarm" do
   context "creating fake sensor" do
    class FakeSensor
      attr_accessor :sample_pressure
-   
     end 
     let(:sensor){FakeSensor.new }
     it 'should be on and off' do 
