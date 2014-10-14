@@ -1,26 +1,22 @@
 require 'sensor'
 class Alarm
   # Fill in the implementation here
-  attr_reader :sensor
-  attr_accessor :status
+  attr_reader :sensor, :notifier
 
-  def initialize(sensor)
+  def initialize(sensor, notifier)
     @status = nil
     @sensor = sensor
+    @notifier = notifier
   end
 
   def check
     if @sensor.sample_pressure.between?(17.5, 21)
-      @status = false
+      notifier.normal_range
     else 
-      @status = true
+      notifier.out_of_bounds 
     end
   end
   
-  def on?
-    @status
-  end
-
 end
 
 
