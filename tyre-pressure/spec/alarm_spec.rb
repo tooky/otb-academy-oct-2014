@@ -22,12 +22,25 @@ RSpec.describe "tyre pressure alarm" do
     end
   end
 
-  context "status to on " do
-    let(:sample_pressure){ 5.6}
+  context "status to be on " do
+    let(:sample_pressure){ 5.6 }
     it 'should be on' do
       alarm.check
       expect(alarm.on?).to be true
     end
+  end
 
+  context "alarm situation" do
+
+    let(:sample_pressure){ 10 }
+    
+    it 'should be on' do 
+      alarm.check
+      expect(alarm.on?).to be true
+      # sensor pressure is now normal????
+      allow(sensor).to receive(:sample_pressure).and_return(20)
+      alarm.check
+      expect(alarm.on?).to be false
+    end
   end
 end
