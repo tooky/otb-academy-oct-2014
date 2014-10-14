@@ -1,4 +1,33 @@
 require 'alarm'
 RSpec.describe "tyre pressure alarm" do
-  it "needs some tests"
+  
+
+  let(:sensor){ double("Sensor", :sample_pressure => sample_pressure)}
+  let(:sample_pressure){ 17.8}
+  let(:alarm) {Alarm.new(sensor)}
+
+  it "should init with sensor results" do
+    expect(alarm.sensor.sample_pressure).to eq(17.8)
+  end
+
+  it 'should check sensor results' do
+    alarm.check
+    expect([true, false]).to include(alarm.status)
+  end
+  context "status of alarm is on!" do
+ 
+    it 'should be off' do
+      alarm.check
+      expect(alarm.on?).to be false
+    end
+  end
+
+  context "status to on " do
+    let(:sample_pressure){ 5.6}
+    it 'should be on' do
+      alarm.check
+      expect(alarm.on?).to be true
+    end
+
+  end
 end
