@@ -64,14 +64,6 @@ World(ProductHelper)
 class Product < Struct.new(:barcode, :price)
 end
 
-class InMemoryProductList
-  def add_product(product)
-  end
-
-  def find_item(barcode)
-  end
-end
-
 
 
 
