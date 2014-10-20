@@ -61,9 +61,6 @@ module ProductHelper
 end
 World(ProductHelper)
 
-class Product < Struct.new(:barcode, :price)
-end
-
 
 
 

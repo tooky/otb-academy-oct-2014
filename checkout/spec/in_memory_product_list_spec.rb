@@ -1,8 +1,5 @@
 require 'checkout'
 
-class Product < Struct.new(:barcode, :price)
-end
-
 RSpec.describe InMemoryProductList do
   it "can find a product by it's barcode" do
     product_list = InMemoryProductList.new

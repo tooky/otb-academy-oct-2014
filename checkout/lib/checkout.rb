@@ -1,3 +1,6 @@
+class Product < Struct.new(:barcode, :price)
+end
+
 class InMemoryProductList
   def add_product(product)
     products[product.barcode] = product
