@@ -1,21 +1,23 @@
+Given(/^an unknown item$/) do
+  product = Product.new('abc123', 10.99)
+  @the_item = product
+end
+
 Given(/^a known item$/) do
   add_product(Product.new('abc123', 10.99))
 end
 
 When(/^the cashier scans the item$/) do
-  scan(the_item.barcode)
+  checkout = Checkout.new(display, product_database)
+  checkout.scan(the_item.barcode)
 end
 
 Then(/^the item should be added to the total$/) do
-  expect( display.total ).to eq( last_item.price )
-end
-
-Given(/^an unknown item$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(display.total).to eq 10.99
 end
 
 Given(/^the cashier should be notified that the item is not recognised$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect( display ).to be_showing_not_found
 end
 
 module TestDisplay
@@ -28,7 +30,21 @@ module TestDisplay
 
     def initialize
       @total = 0
+      @showing_not_found = false
     end
+
+    def add(price)
+      @total += price
+    end
+
+    def showing_not_found?
+      @showing_not_found
+    end
+
+    def not_found
+      @showing_not_found = true
+    end
+
   end
 end
 World(TestDisplay)
@@ -60,8 +76,6 @@ module ProductHelper
   end
 end
 World(ProductHelper)
-
-
 
 
 
