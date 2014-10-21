@@ -1,19 +1,31 @@
+Before do
+  @product_list = InMemoryProductList.new
+  Sinatra::Application.set :product_list, @product_list
+end
+
 Given(/^a known item$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  
+  @product = Product.new("abc", 9.99)
+  @product_list.add_product(@product)
 end
 
-Given(/^the cashier scans the item$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+When(/^the cashier scans the item$/) do
+  visit "/scan"
+
+  fill_in "barcode", with: "abc"
+  click_button "scan"
 end
 
-Given(/^the item should be added to the total$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+Then(/^the item should be added to the total$/) do
+  within("#total") do
+    expect(page).to have_content @product.price
+  end
 end
 
 Given(/^an unknown item$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  @product = Product.new("abc", 9.99)
 end
 
-Given(/^the cashier should be notified that the item is not recognised$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+Then(/^the cashier should be notified that the item is not recognised$/) do
+  expect(page).to have_content "Product Not Found"
 end

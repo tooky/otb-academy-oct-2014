@@ -1,14 +1,25 @@
 require 'sinatra'
 
 get '/scan' do
-  barcode =  params[:q]
-  barcode.to_s
-  erb :layout
+  erb :index
 end
 
-template :layout do
-  "<div id=\"total\"> 10.99 </div>" + 
-  "<div id=\"notfound\"> Item not found </div>"
+post "/scan" do
+  barcode =  params[:barcode].to_s
+
+  if product = settings.product_list.find_item(barcode)
+    erb :success, locals: { price: product.price }
+  else
+    erb :not_found
+  end
+end
+
+template :success do
+  "<div id='total'><%= price %></div>"
+end
+
+template :not_found do
+  "<div id='notfound'>Product Not Found</div>"
 end
 
 class Product < Struct.new(:barcode, :price)
